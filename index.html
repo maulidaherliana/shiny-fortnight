@@ -1,171 +1,275 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>instagram</title>
+    <title>Situs Pribadi Super Lucu! - Dengan Editor Foto</title>
+    <!-- Memuat Tailwind CSS untuk styling modern dan cepat -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Menggunakan font 'Inter' yang bersih dan modern */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #FAFAFA; /* Warna latar belakang umum */
-            margin: 0;
-            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #FFF7ED; /* Warna latar belakang krem muda/peach yang lembut */
         }
-        .header {
-            background-color: #FFFFFF; /* Header putih */
-            border-bottom: 1px solid #DBDBDB;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        /* Custom scrollbar yang lebih lucu */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .header-content {
-            width: 935px; /* Lebar konten Instagram web */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            color: #000000;
-            font-size: 24px;
-            font-weight: bold;
-            font-family: 'Billabong', cursive; /* Bayangkan ini font khas Instagram */
-        }
-        .main-container {
-            display: flex;
-            justify-content: center;
-            padding-top: 20px;
-        }
-        .feed {
-            width: 614px; /* Lebar kolom feed */
-            margin-right: 28px;
-        }
-        .sidebar {
-            width: 293px; /* Lebar kolom sidebar */
-        }
-        .post {
-            background-color: #FFFFFF;
-            border: 1px solid #DBDBDB;
-            margin-bottom: 20px;
-            border-radius: 3px;
-        }
-        .post-header {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-        }
-        .profile-pic {
-            width: 32px;
-            height: 32px;
-            background-color: #C6C6C6; /* Placeholder untuk foto profil */
-            border-radius: 50%;
-            margin-right: 12px;
-            border: 2px solid #3897F0; /* Border biru untuk meniru Story/Highlight */
-        }
-        .post-username {
-            font-weight: 600;
-            color: #000000;
-        }
-        .post-image {
-            width: 100%;
-            height: 614px; /* Placeholder untuk gambar */
-            background-color: #EFEFEF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            color: #8E8E8E;
-        }
-        .blue-button {
-            background-color: #3897F0; /* Warna biru khas Instagram */
-            color: white;
-            padding: 5px 9px;
-            border: none;
+        ::-webkit-scrollbar-thumb {
+            background-color: #FDBA74; /* Warna oranye lembut */
             border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
         }
-        .sidebar-profile {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+        /* Animasi Pop Ringan untuk Tombol */
+        .pop-on-hover:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 15px rgba(251, 146, 60, 0.3); /* Shadow warna oranye */
+        }
+        .pop-on-hover {
+            transition: all 0.15s ease-in-out;
+        }
+        /* Styling untuk Canvas agar terlihat bagus */
+        #photoCanvas {
+            border: 4px dashed #FDBA74;
+            background-color: #FFFFFF;
+            cursor: crosshair;
+            margin: 0 auto;
+            display: block;
         }
     </style>
 </head>
-<body>
+<body class="text-gray-800">
 
-    <div class="header">
-        <div class="header-content">
-            <div class="logo">Instagram</div>
-            <div>
-                <button class="blue-button">Cari / Icon</button> 
+    <!-- Header & Navigasi -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-extrabold text-[#F97316] tracking-wider">
+                🍊 Si Oranye Lucu
+            </h1>
+            <nav class="space-x-4 flex items-center">
+                <a href="#about" class="text-lg font-medium hover:text-[#F97316] transition pop-on-hover">Tentang</a>
+                <a href="#projects" class="text-lg font-medium hover:text-[#F97316] transition pop-on-hover">Proyek</a>
+                <a href="#editor" class="text-lg font-medium hover:text-[#F97316] transition pop-on-hover px-4 py-2 bg-[#FDBA74] rounded-full text-white shadow-md">Editor Foto ✨</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bagian Hero/Pembukaan -->
+    <section id="hero" class="py-20 text-center bg-[#FEF3C7]">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="mx-auto w-32 h-32 bg-[#F97316] rounded-full flex items-center justify-center text-6xl shadow-xl border-4 border-white transform rotate-3 mb-6">
+                🥳
+            </div>
+            <h2 class="text-5xl font-black mb-4 leading-tight">
+                Halo! Saya [Nama Anda]!
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Selamat datang di tempat digital saya yang super duper kiyut! Di sini ada semua hal konyol yang saya buat, ditambah ada alat ajaib untuk edit fotomu, lho!
+            </p>
+            <a href="#editor" class="inline-block px-8 py-3 bg-[#F97316] text-white font-bold text-xl rounded-xl shadow-lg hover:bg-[#EA580C] pop-on-hover">
+                Coba Editor Foto Sekarang!
+            </a>
+        </div>
+    </section>
+
+    <!-- Bagian Tentang Saya -->
+    <section id="about" class="py-16 max-w-5xl mx-auto px-4">
+        <div class="bg-white p-8 rounded-3xl shadow-xl border-t-8 border-[#FDBA74]">
+            <h3 class="text-4xl font-bold mb-6 text-[#F97316]">👋 Siapa Saya?</h3>
+            <div class="text-lg space-y-4">
+                <p>Saya adalah seorang [pekerjaan/gelar Anda] yang suka banget sama [hobi 1] dan [hobi 2]. Jika saya tidak sedang [aktivitas 1], mungkin saya sedang [aktivitas 2] sambil minum es teh manis.</p>
+                <p>Motto hidup: "Hidup itu seperti semangkuk sup. Kadang panas, kadang tumpah, tapi tetap harus dinikmati!"</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="main-container">
+    <!-- Bagian Editor Foto Canvas -->
+    <section id="editor" class="py-16 max-w-7xl mx-auto px-4">
+        <h3 class="text-4xl font-bold mb-10 text-center text-[#F97316] drop-shadow-md">✨ Area Edit Foto Ajaib ✨</h3>
         
-        <div class="feed">
+        <div class="bg-white p-6 md:p-10 rounded-3xl shadow-2xl border-b-8 border-r-8 border-[#FDBA74] flex flex-col lg:flex-row gap-8">
             
-            <div class="post">
-                <div class="post-header">
-                    <div class="profile-pic"></div>
-                    <div class="post-username">akunkonten</div>
+            <!-- Panel Kontrol -->
+            <div class="lg:w-1/3 space-y-6">
+                <div class="p-4 bg-[#FFF7ED] rounded-xl shadow-inner">
+                    <label for="imageLoader" class="block text-xl font-bold mb-3 text-[#F97316]">1. Pilih Foto Kerenmu:</label>
+                    <input type="file" id="imageLoader" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#FDBA74] file:text-white hover:file:bg-[#F97316] transition cursor-pointer"/>
                 </div>
-                <div class="post-image">
-                    Area Gambar (614x614)
+
+                <div class="p-4 bg-[#FFF7ED] rounded-xl shadow-inner space-y-4">
+                    <h4 class="text-xl font-bold mb-3 text-[#F97316]">2. Tambahkan Efek Lucu:</h4>
+                    <button id="grayscaleBtn" class="w-full pop-on-hover py-2 px-4 bg-yellow-400 text-gray-800 rounded-lg font-semibold hover:bg-yellow-500 shadow-md">⚫ Hitam Putih (Monokrom)</button>
+                    <button id="sepiaBtn" class="w-full pop-on-hover py-2 px-4 bg-amber-400 text-gray-800 rounded-lg font-semibold hover:bg-amber-500 shadow-md">📜 Sepia (Klasik)</button>
+                    <button id="invertBtn" class="w-full pop-on-hover py-2 px-4 bg-purple-400 text-white rounded-lg font-semibold hover:bg-purple-500 shadow-md">👾 Invert (Ngelag)</button>
                 </div>
-                <div style="padding: 16px; color: #00376B;">
-                    <p style="margin: 0; font-size: 14px;">
-                        <span style="font-weight: 600;">akunkonten</span> Ini adalah contoh deskripsi post.
-                    </p>
-                    <div style="margin-top: 8px;">
-                        <button class="blue-button" style="background-color: transparent; color: #262626; padding: 0; font-size: 14px; font-weight: 400;">100 Suka</button>
-                    </div>
+                
+                <div class="p-4 bg-red-100 rounded-xl shadow-inner">
+                    <button id="resetBtn" class="w-full pop-on-hover py-3 px-4 bg-red-500 text-white rounded-lg font-bold text-lg hover:bg-red-600 shadow-lg">↩️ Reset Foto</button>
+                </div>
+
+                <div class="p-4 bg-green-100 rounded-xl shadow-inner">
+                    <button id="downloadBtn" class="w-full pop-on-hover py-3 px-4 bg-green-500 text-white rounded-lg font-bold text-lg hover:bg-green-600 shadow-lg">💾 Unduh Foto Ajaib!</button>
                 </div>
             </div>
 
-            <div class="post">
-                <div class="post-header">
-                    <div class="profile-pic"></div>
-                    <div class="post-username">akunlain</div>
-                </div>
-                <div class="post-image">
-                    Area Gambar (614x614)
-                </div>
-                <div style="padding: 16px; color: #00376B;">
-                    <p style="margin: 0; font-size: 14px;">
-                        <span style="font-weight: 600;">akunlain</span> Postingan kedua dengan gaya biru!
-                    </p>
-                </div>
+            <!-- Area Canvas -->
+            <div class="lg:w-2/3 flex flex-col items-center justify-center bg-[#FEF3C7] p-4 rounded-xl shadow-lg">
+                <canvas id="photoCanvas" width="600" height="400" class="max-w-full h-auto"></canvas>
+                <p id="canvasMessage" class="mt-4 text-center text-gray-500">Ayo, masukkan fotomu untuk memulai keajaiban!</p>
             </div>
-
+            
         </div>
+    </section>
 
-        <div class="sidebar">
-            <div class="sidebar-profile">
-                <div class="profile-pic" style="width: 56px; height: 56px; border: none;"></div>
-                <div style="margin-left: 12px;">
-                    <div style="font-weight: 600;">user_anda</div>
-                    <div style="color: #8E8E8E; font-size: 14px;">Nama Anda</div>
-                </div>
-            </div>
-            
-            <div style="color: #8E8E8E; font-weight: 600; margin-bottom: 10px; font-size: 14px;">Saran Untuk Anda</div>
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <div style="display: flex; align-items: center;">
-                    <div class="profile-pic" style="width: 32px; height: 32px; background-color: #8E8E8E; border: none;"></div>
-                    <div style="margin-left: 12px; font-weight: 600; font-size: 14px;">saran_1</div>
-                </div>
-                <button class="blue-button" style="padding: 3px 6px; font-size: 12px;">Ikuti</button>
-            </div>
+    <!-- Footer -->
+    <footer class="bg-[#FDBA74] mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-800">
+            <p class="font-semibold mb-2">Dibuat dengan senyum dan banyak kode! &copy; 2025</p>
+            <p class="text-sm">Terima kasih sudah mampir ke situs kiyut ini!</p>
         </div>
+    </footer>
 
-    </div>
+    <script>
+        // Variabel Global untuk Canvas dan Konteks
+        const canvas = document.getElementById('photoCanvas');
+        const ctx = canvas.getContext('2d');
+        const imageLoader = document.getElementById('imageLoader');
+        const canvasMessage = document.getElementById('canvasMessage');
 
+        let originalImage = new Image();
+        let currentImageData = null; // Menyimpan data gambar saat ini (setelah efek)
+
+        // FUNGSI UTAMA: MEMUAT GAMBAR KE CANVAS
+        function loadAndDrawImage(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                originalImage.onload = function() {
+                    // Tentukan ukuran canvas (misalnya, maks 600px lebar, proporsional)
+                    const maxWidth = 600;
+                    const scaleFactor = originalImage.width > maxWidth ? maxWidth / originalImage.width : 1;
+                    
+                    canvas.width = originalImage.width * scaleFactor;
+                    canvas.height = originalImage.height * scaleFactor;
+
+                    ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+                    
+                    // Simpan data gambar awal (untuk reset)
+                    currentImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+                    canvasMessage.textContent = 'Foto siap diedit! Pilih salah satu efek di samping.';
+                };
+                originalImage.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // FUNGSI EFEK: MENGUBAH PIXEL DI CANVAS
+        function applyFilter(filterFunction) {
+            if (!currentImageData) {
+                alertUser("Silakan muat foto terlebih dahulu!", "bg-red-500");
+                return;
+            }
+
+            // Ambil data gambar terbaru (bukan selalu yang original)
+            let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let data = imageData.data;
+
+            // Aplikasikan fungsi filter ke setiap pixel
+            for (let i = 0; i < data.length; i += 4) {
+                filterFunction(data, i);
+            }
+
+            // Letakkan data gambar yang baru (sudah difilter) kembali ke canvas
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        // FUNGSI FILTER SPESIFIK
+
+        // 1. Grayscale (Hitam Putih)
+        function grayscale(data, i) {
+            // Hitung rata-rata warna (luminositas)
+            let avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+            data[i]     = avg; // Merah
+            data[i + 1] = avg; // Hijau
+            data[i + 2] = avg; // Biru
+        }
+
+        // 2. Sepia (Klasik)
+        function sepia(data, i) {
+            let r = data[i];
+            let g = data[i + 1];
+            let b = data[i + 2];
+
+            // Formula Sepia
+            data[i]     = Math.min(255, (r * 0.393) + (g * 0.769) + (b * 0.189)); // R
+            data[i + 1] = Math.min(255, (r * 0.349) + (g * 0.686) + (b * 0.168)); // G
+            data[i + 2] = Math.min(255, (r * 0.272) + (g * 0.534) + (b * 0.131)); // B
+        }
+
+        // 3. Invert (Negatif)
+        function invert(data, i) {
+            data[i]     = 255 - data[i];     // R
+            data[i + 1] = 255 - data[i + 1]; // G
+            data[i + 2] = 255 - data[i + 2]; // B
+        }
+
+        // 4. Reset
+        function resetImage() {
+            if (originalImage.complete && originalImage.src) {
+                // Gambar ulang gambar original
+                ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+                canvasMessage.textContent = 'Foto sudah direset ke kondisi awal!';
+            } else {
+                alertUser("Tidak ada foto yang dimuat untuk direset.", "bg-gray-500");
+            }
+        }
+        
+        // 5. Download
+        function downloadImage() {
+            if (!originalImage.complete || !originalImage.src) {
+                alertUser("Tidak ada foto untuk diunduh!", "bg-red-500");
+                return;
+            }
+            // Konversi konten canvas menjadi URL gambar
+            const imageURL = canvas.toDataURL("image/png");
+            
+            // Buat elemen link virtual
+            const link = document.createElement('a');
+            link.href = imageURL;
+            link.download = 'foto_ajaib_lucu.png';
+            
+            // Simulasikan klik
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            alertUser("Foto berhasil diunduh!", "bg-green-500");
+        }
+
+        // FUNGSI NOTIFIKASI KUSTOM (Pengganti alert())
+        function alertUser(message, bgColorClass) {
+            const notifBox = document.createElement('div');
+            notifBox.textContent = message;
+            notifBox.className = `${bgColorClass} text-white p-3 rounded-xl shadow-xl fixed bottom-5 left-1/2 transform -translate-x-1/2 z-[1000] transition-opacity duration-300`;
+            document.body.appendChild(notifBox);
+
+            setTimeout(() => {
+                notifBox.style.opacity = '0';
+                notifBox.addEventListener('transitionend', () => notifBox.remove());
+            }, 3000);
+        }
+
+        // LISTENERS
+        imageLoader.addEventListener('change', loadAndDrawImage);
+        document.getElementById('grayscaleBtn').addEventListener('click', () => applyFilter(grayscale));
+        document.getElementById('sepiaBtn').addEventListener('click', () => applyFilter(sepia));
+        document.getElementById('invertBtn').addEventListener('click', () => applyFilter(invert));
+        document.getElementById('resetBtn').addEventListener('click', resetImage);
+        document.getElementById('downloadBtn').addEventListener('click', downloadImage);
+
+    </script>
 </body>
 </html>
